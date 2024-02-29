@@ -1,0 +1,44 @@
+def encrypt(text, shift):
+    encrypted_text = ""
+    for char in text:
+        if char.isalpha():
+            start = ord('a') if char.islower() else ord('A')
+            encrypted_char = chr((ord(char) - start + shift) % 26 + start)
+            encrypted_text += encrypted_char
+        else:
+            encrypted_text += char
+    return encrypted_text
+
+def decrypt(encrypted_text, shift):
+    decrypted_text = ""
+    for char in encrypted_text:
+        if char.isalpha():
+            start = ord('a') if char.islower() else ord('A')
+            decrypted_char = chr((ord(char) - start - shift) % 26 + start)
+            decrypted_text += decrypted_char
+        else:
+            decrypted_text += char
+    return decrypted_text
+
+def main():
+    choice = input("Do you want to encrypt (Press 'c') or decrypt (Press 'd')? ").lower()
+
+    if choice == 'c':
+        text_to_encrypt = input("Enter the text to encrypt: ")
+        shift_value = int(input("Enter the shift (at least 4 digits; to remember for decryption): "))
+        encrypted_text = encrypt(text_to_encrypt, shift_value)
+        print("Encrypted text:", encrypted_text)
+
+    elif choice == 'd':
+        text_to_decrypt = input("Enter the text to decrypt: ")
+        shift_value = int(input("Enter the shift used during encryption (at least 4 digits): "))
+        decrypted_text = decrypt(text_to_decrypt, shift_value)
+        print("Decrypted text:", decrypted_text)
+
+    else:
+        print("Invalid choice. Enter 'c' to encrypt or 'd' to decrypt.")
+
+    input("Press any key to close the program...")
+
+if __name__ == "__main__":
+    main()
