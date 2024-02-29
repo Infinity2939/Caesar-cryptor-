@@ -1,0 +1,46 @@
+def encrypt(text, shift):
+    encrypted_text = ""
+    for char in text:
+        if char.isalpha():
+            start = ord('a') if char.islower() else ord('A')
+            encrypted_char = chr((ord(char) - start + shift) % 26 + start)
+            encrypted_text += encrypted_char
+        else:
+            encrypted_text += char
+    return encrypted_text
+
+def decrypt(encrypted_text, shift):
+    decrypted_text = ""
+    for char in encrypted_text:
+        if char.isalpha():
+            start = ord('a') if char.islower() else ord('A')
+            decrypted_char = chr((ord(char) - start - shift) % 26 + start)
+            decrypted_text += decrypted_char
+        else:
+            decrypted_text += char
+    return decrypted_text
+
+def main():
+    choice = input("Voulez-vous crypter (Appuyer sur c) ou décrypter (Appuyer sur d) ? ").lower()
+
+    if choice == 'c':
+        text_to_encrypt = input("Entrez le texte à crypter : ")
+        shift_value = int(input("Entrez le décalage (au moins 4 chiffres; à retenir pour le décryptage) : "))
+        encrypted_text = encrypt(text_to_encrypt, shift_value)
+        print("Texte crypté :", encrypted_text)
+
+    elif choice == 'd':
+        text_to_decrypt = input("Entrez le texte à décrypter : ")
+        shift_value = int(input("Entrez le décalage utilisé lors du cryptage (au moins 4 chiffres) : "))
+        decrypted_text = decrypt(text_to_decrypt, shift_value)
+        print("Texte décrypté :", decrypted_text)
+   # Pause pour donner des informations sur le décryptage
+        input("Appuyez sur une touche pour avoir des informations sur le décryptage...")
+        print("g=é\nx=à\ne=ç\nf=è")
+    else:
+        print("Choix non valide. Entrez 'c' pour crypter ou 'd' pour décrypter.")
+
+    input("Appuyez sur une touche pour fermer le programme...")
+
+if __name__ == "__main__":
+    main()
