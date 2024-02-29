@@ -1,0 +1,44 @@
+def encrypt(text, shift):
+    encrypted_text = ""
+    for char in text:
+        if char.isalpha():
+            start = ord('a') if char.islower() else ord('A')
+            encrypted_char = chr((ord(char) - start + shift) % 26 + start)
+            encrypted_text += encrypted_char
+        else:
+            encrypted_text += char
+    return encrypted_text
+
+def decrypt(encrypted_text, shift):
+    decrypted_text = ""
+    for char in encrypted_text:
+        if char.isalpha():
+            start = ord('a') if char.islower() else ord('A')
+            decrypted_char = chr((ord(char) - start - shift) % 26 + start)
+            decrypted_text += decrypted_char
+        else:
+            decrypted_text += char
+    return decrypted_text
+
+def main():
+    choice = input("Quer criptografar (Pressione 'c') ou descriptografar (Pressione 'd')? ").lower()
+
+    if choice == 'c':
+        text_to_encrypt = input("Digite o texto para criptografar: ")
+        shift_value = int(input("Digite o deslocamento (pelo menos 4 dígitos; para lembrar durante a descriptografia): "))
+        encrypted_text = encrypt(text_to_encrypt, shift_value)
+        print("Texto criptografado:", encrypted_text)
+
+    elif choice == 'd':
+        text_to_decrypt = input("Digite o texto para descriptografar: ")
+        shift_value = int(input("Digite o deslocamento utilizado durante a criptografia (pelo menos 4 dígitos): "))
+        decrypted_text = decrypt(text_to_decrypt, shift_value)
+        print("Texto descriptografado:", decrypted_text)
+
+    else:
+        print("Escolha inválida. Digite 'c' para criptografar ou 'd' para descriptografar.")
+
+    input("Pressione qualquer tecla para fechar o programa...")
+
+if __name__ == "__main__":
+    main()
